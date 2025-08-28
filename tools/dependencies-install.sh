@@ -133,7 +133,7 @@ install_debian_deps () {
     echo "Current dir: $(pwd)"
     cargo build --release
     echo "Moving binwalk binary to /usr/bin/"
-    mv ${SCRIPT_DIRECTORY/binwalk/target/release/binwalk} /usr/bin/.
+    mv target/release/binwalk /usr/bin/.
     cd ..
 
     echo ""

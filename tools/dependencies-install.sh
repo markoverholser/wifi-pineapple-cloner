@@ -130,7 +130,8 @@ install_debian_deps () {
 
     echo "Building binwalk"
     cd binwalk
-    cargo build --release &&
+    echo "Current dir: ${pwd}"
+    cargo build --release
     echo "Moving binwalk binary to /usr/bin/"
     mv ${SCRIPT_DIRECTORY/binwalk/target/release/binwalk} /usr/bin/.
     cd ..

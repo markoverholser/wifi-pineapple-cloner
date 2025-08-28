@@ -123,8 +123,8 @@ prepare_build () {
 
         echo "  [+] Unpack firmware for get file system"
         binwalk "$FW_FOLDER/basefw.bin" -e 
-        binwalk "$FW_FOLDER/_basefw.bin.extracted/sysupgrade-pineapple-tetra/root" -e --preserve-symlinks
-        mv "$FW_FOLDER/_basefw.bin.extracted/sysupgrade-pineapple-tetra/_root.extracted/squashfs-root/" "$BUILD_FOLDER/rootfs-base"
+        binwalk "$FW_FOLDER/extractions/basefw.bin.extracted/0/sysupgrade-pineapple-tetra/root" -e --preserve-symlinks
+        mv "$FW_FOLDER/extractions/root.extracted/0/squashfs-root/" "$BUILD_FOLDER/rootfs-base"
     else
         #echo "  [+] Downloading NANO firmware..."
         #wget -q https://github.com/xchwarze/wifi-pineapple-community/raw/main/firmwares/2.7.0-nano.bin -O "$FW_FOLDER/basefw.bin"

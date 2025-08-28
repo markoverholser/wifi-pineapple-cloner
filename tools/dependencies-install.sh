@@ -129,7 +129,7 @@ install_debian_deps () {
     source "binwalk/dependencies/src.sh"
 
     echo "Building binwalk"
-    cd binwalk
+    cd /wifi-pineapple-cloner/binwalk
     echo "Current dir: $(pwd)"
     cargo build --release
     echo "Moving binwalk binary to /usr/bin/"

@@ -112,7 +112,6 @@ install_debian_deps () {
       libfontconfig1-dev \
       liblzma-dev \
       libssl-dev \
-      7zip-standalone \
       cpio \
       device-tree-compiler
 

@@ -61,6 +61,85 @@ install_ubuntu_deps () {
     echo "[*] Install script end!"
 }
 
+install_debian_deps () {
+    echo "Install debian deps..."
+    echo "******************************"
+
+    # install deps openwrt make and others
+    DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get install -y \
+      build-essential \
+      python3-pip \
+      wget \
+      curl \
+      vim \
+      gawk \
+      libncurses5-dev \
+      libncursesw5-dev \
+      zip \
+      rename \
+      xz-utils
+
+    # install binwalk
+    git clone https://github.com/ReFirmLabs/binwalk
+    echo "Installing Rust environment"
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    . $HOME/.cargo/env
+    echo "Installing binwalk dependencies"
+    SCRIPT_DIRECTORY=$(dirname -- "$( readlink -f -- "$0"; )")
+    DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install \
+      7zip \
+      zstd \
+      srecord \
+      tar \
+      unzip \
+      sleuthkit \
+      cabextract \
+      curl \
+      wget \
+      git \
+      lz4 \
+      lzop \
+      unrar-free \
+      unyaffs \
+      python3-pip \
+      build-essential \
+      clang \
+      liblzo2-dev \
+      libucl-dev \
+      liblz4-dev \
+      libbz2-dev \
+      zlib1g-dev \
+      libfontconfig1-dev \
+      liblzma-dev \
+      libssl-dev \
+      7zip-standalone \
+      cpio \
+      device-tree-compiler
+
+
+    #cd binwalk && sudo python3 setup.py install && sudo ./deps.sh
+    # Install sasquatch Debian package
+    curl -L -o sasquatch_1.0.deb "https://github.com/onekey-sec/sasquatch/releases/download/sasquatch-v4.5.1-5/sasquatch_1.0_$(dpkg --print-architecture).deb"
+    dpkg -i sasquatch_1.0.deb
+    rm sasquatch_1.0.deb
+
+    # Install (binwalk) Python dependencies
+    source "${SCRIPT_DIRECTORY}/pip.sh"
+
+    # Install (binwalk) dependencies from source
+    source "${SCRIPT_DIRECTORY}/src.sh"
+
+    echo "Building binwalk"
+    cd ${SCRIPT_DIRECTORY/binwalk}
+    echo "Moving binwalk binary to /usr/bin/"
+    cargo build --release && \
+      mv ${SCRIPT_DIRECTORY/binwalk/target/release/binwalk} /usr/bin/.
+    cd ..
+    
+    echo ""
+    echo "[*] Install script end!"
+}
+
 install_openwrt_deps_mips () {
     echo "Install OpenWrt MIPS deps..."
     echo "******************************"

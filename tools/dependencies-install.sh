@@ -85,7 +85,7 @@ install_debian_deps () {
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     . $HOME/.cargo/env
     echo "Installing binwalk dependencies"
-    SCRIPT_DIRECTORY=$(dirname -- "$( readlink -f -- "$0"; )")
+    #SCRIPT_DIRECTORY=$(dirname -- "$( readlink -f -- "$0"; )")
     DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install \
       7zip \
       zstd \
@@ -123,16 +123,16 @@ install_debian_deps () {
     rm sasquatch_1.0.deb
 
     # Install (binwalk) Python dependencies
-    source "${SCRIPT_DIRECTORY}/pip.sh"
+    source "binwalk/dependencies/pip.sh"
 
     # Install (binwalk) dependencies from source
-    source "${SCRIPT_DIRECTORY}/src.sh"
+    source "binwalk/dependencies/src.sh"
 
     echo "Building binwalk"
-    cd ${SCRIPT_DIRECTORY/binwalk}
+    cd binwalk
+    cargo build --release &&
     echo "Moving binwalk binary to /usr/bin/"
-    cargo build --release && \
-      mv ${SCRIPT_DIRECTORY/binwalk/target/release/binwalk} /usr/bin/.
+    mv ${SCRIPT_DIRECTORY/binwalk/target/release/binwalk} /usr/bin/.
     cd ..
 
     echo ""

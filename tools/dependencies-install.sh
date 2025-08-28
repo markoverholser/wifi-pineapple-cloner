@@ -135,7 +135,7 @@ install_debian_deps () {
     cargo build --release && \
       mv ${SCRIPT_DIRECTORY/binwalk/target/release/binwalk} /usr/bin/.
     cd ..
-    
+
     echo ""
     echo "[*] Install script end!"
 }
@@ -181,6 +181,9 @@ then
 elif [ "$1" == "ubuntu-deps" ]
 then
     install_ubuntu_deps
+elif [ "$1" == "debian-deps" ]
+then
+    install_debian_deps
 else
     echo "Valid command:"
     echo "openwrt-deps-mips    -> install imagebuilders for mips and configure it"

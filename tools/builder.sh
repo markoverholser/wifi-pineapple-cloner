@@ -37,10 +37,12 @@ FW_NANO_HASH="3e087e6e9256431f2022e8e70373569d57f7ec77"
 FW_MK7_HASH="32ba9cc3fd7e1b4489a14c1b3c5b4af118dff810"
 
 # fix folders paths
+BASE_FOLDER="$(realpath $(dirname $0)/../)"
 IMAGEBUILDER_FOLDER="$(realpath $IMAGEBUILDER_FOLDER)"
 TOOL_FOLDER="$(realpath $(dirname $0)/../tools)"
 BUILD_FOLDER="$(realpath $(dirname $0)/../build)"
 FW_FOLDER="$(realpath $(dirname $0)/../build/fw-base)"
+EXTRACTIONS_FOLDER="$(realpath $(dirname $0)/../extractions)"
 
 
 
@@ -123,8 +125,8 @@ prepare_build () {
 
         echo "  [+] Unpack firmware for get file system"
         binwalk "$FW_FOLDER/basefw.bin" -e 
-        binwalk "$FW_FOLDER/extractions/basefw.bin.extracted/0/sysupgrade-pineapple-tetra/root" -e
-        mv "$FW_FOLDER/extractions/root.extracted/0/squashfs-root/" "$BUILD_FOLDER/rootfs-base"
+        binwalk "$EXTRACTIONS_FOLDER/basefw.bin.extracted/0/sysupgrade-pineapple-tetra/root" -e
+        mv "$EXTRACTIONS_FOLDER/extractions/root.extracted/0/squashfs-root/" "$BUILD_FOLDER/rootfs-base"
     else
         #echo "  [+] Downloading NANO firmware..."
         #wget -q https://github.com/xchwarze/wifi-pineapple-community/raw/main/firmwares/2.7.0-nano.bin -O "$FW_FOLDER/basefw.bin"
